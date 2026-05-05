@@ -1,0 +1,66 @@
+<main class="shell">
+  <section class="host-panel" aria-label="Angular host controls">
+    <div>
+      <p class="eyebrow">Angular host</p>
+      <h1>TradeLog SDK Web</h1>
+      <p class="summary">
+        Este proyecto Angular importa <code>@tradelog/support-sdk-web</code> y
+        monta el SDK con <code>TradeLogWeb.mount(...)</code>.
+      </p>
+    </div>
+
+    <form class="control-form" (ngSubmit)="mountSdk()">
+      <div class="grid">
+        <label>
+          API key
+          <input name="apiKey" [(ngModel)]="form.apiKey" />
+        </label>
+        <label>
+          Tenant
+          <input name="tenantId" [(ngModel)]="form.tenantId" />
+        </label>
+      </div>
+
+      <div class="grid">
+        <label>
+          Nombre
+          <input name="customerName" [(ngModel)]="form.customerName" />
+        </label>
+        <label>
+          Email
+          <input name="customerData" [(ngModel)]="form.customerData" />
+        </label>
+      </div>
+
+      <div class="actions">
+        <button type="submit">Montar SDK</button>
+        <button type="button" class="secondary" (click)="unmountSdk()">
+          Desmontar
+        </button>
+      </div>
+    </form>
+
+    <section class="event-card" aria-label="Host event log">
+      <div class="event-card-header">
+        <h2>Eventos del host</h2>
+        <button type="button" class="text-button" (click)="clearEvents()">
+          Limpiar
+        </button>
+      </div>
+
+      <ol class="event-log">
+        @for (event of events; track event.id) {
+          <li>
+            <span>{{ event.timestamp }}</span>
+            <strong>{{ event.title }}</strong>
+            <pre>{{ event.payload | json }}</pre>
+          </li>
+        }
+      </ol>
+    </section>
+  </section>
+
+  <section class="sdk-panel" aria-label="TradeLog SDK iframe">
+    <div #sdkHost class="sdk-frame"></div>
+  </section>
+</main>
